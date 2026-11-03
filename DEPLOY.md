@@ -1,3 +1,4 @@
+<!-- Account ID and D1 database ID are configured in wrangler.json; no separate variables needed. -->
 # GitHub + Cloudflare 무료 플랜 배포 안내
 
 대상: https://github.com/rldusovuun/math_review_grade4
@@ -42,7 +43,6 @@ Cloudflare의 **API Tokens → Create Token**에서 Workers 배포용 토큰을 
 | 이름 | 값 |
 | --- | --- |
 | `CLOUDFLARE_API_TOKEN` | 위에서 만든 Cloudflare 토큰 |
-| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare 계정 ID |
 | `TEACHER_PASSWORD` | 교사만 아는 16~256자 비밀번호 |
 
 교사 비밀번호는 학생 학급 코드와 별개입니다. 저장소에 예시 비밀번호를 실제 값으로 사용하지 마세요. 비밀번호는 로그인 검증용 SHA-256 값으로 변환되어 Cloudflare의 암호화된 Secret에 저장됩니다.
@@ -51,7 +51,6 @@ Cloudflare의 **API Tokens → Create Token**에서 Workers 배포용 토큰을 
 
 | 이름 | 값 |
 | --- | --- |
-| `CLOUDFLARE_D1_DATABASE_ID` | 위에서 만든 D1 Database ID |
 | `ENABLE_DEPLOY` | `true` |
 
 `ENABLE_DEPLOY`를 설정하기 전에는 배포 작업을 건너뛰고 코드 검사만 실행합니다.
