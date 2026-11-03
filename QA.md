@@ -16,11 +16,20 @@
 - 학생 이름 필드 없음
 - TypeScript/TSX 구문 파싱
 
+## GitHub Actions 검증 통과
+
+- 공개 저장소 main에 소스 업로드 완료
+- npm ci, 전체 자동 테스트, production build 성공
+- Cloudflare Worker 로컬 런타임에서 HTTP 통합 테스트 성공
+- 첫 점수 80점 → 재도전 후 최근 점수 95점, 최초 오답 통계 보존 확인
+- 학생에게 정답·해설 미전달, 학생 세션으로 교사 조회 거부 확인
+- 학급 코드 재발급 후 다시 접속해도 기존 기록 유지 확인
+
+검사: https://github.com/rldusovuun/math_review_grade4/actions/runs/41583167919
+
 ## 아직 미검증
 
-- 전체 의존성 설치 및 production build: 실행 환경 npm 오프라인, 필요한 패키지 캐시 없음
-- 실제 Cloudflare D1 연결과 배포
-- GitHub 저장소 접근 및 업로드: Git 미설치, GitHub 전용 연결 도구·브라우저 연결 없음
-- 실제 모바일/PC 화면, 인쇄 결과, 브라우저에서의 로그인·제출 전체 흐름
+- 실제 Cloudflare 계정의 D1 연결과 production 배포
+- 실제 모바일/PC 화면과 A4 인쇄 결과의 시각 검증
 
-로컬의 자동 검사가 실제 서버·브라우저 통합 검증을 대신하지는 않습니다. GitHub Actions 빌드가 통과한 뒤 DEPLOY.md의 배포 직후 확인을 진행해야 합니다.
+서버 HTTP 검증은 실제 브라우저 시각 검증을 대신하지 않습니다. DEPLOY.md의 배포 직후 확인을 진행해야 합니다.

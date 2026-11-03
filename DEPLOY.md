@@ -7,7 +7,7 @@
 1. 제공된 ZIP 파일을 PC에서 압축 해제합니다.
 2. 저장소에서 **Add file → Upload files**를 엽니다. 빈 저장소라면 **uploading an existing file**을 누릅니다.
 3. 압축을 푼 폴더 **안의 파일과 하위 폴더 전체**를 끌어다 놓습니다. ZIP 자체나 바깥 폴더를 올리지 않습니다.
-4. `.github`, `.gitignore`, `.npmrc`, `.dev.vars.example`도 포함합니다. 업로드 파일은 총 40개입니다.
+4. `.github`, `.gitignore`, `.npmrc`, `.dev.vars.example`도 포함합니다. 업로드 파일에는 자동 검사 및 배포 설정이 포함되어 있습니다.
 5. **Commit changes**로 저장합니다. 루트에 `package.json`이 보여야 합니다.
 6. **Actions → Check learning app**이 성공하는지 확인합니다. 실패하면 해당 로그를 확인해야 합니다.
 

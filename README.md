@@ -54,4 +54,8 @@ npm run dev
 
 ## 현재 검증 상태
 
-문항 구성·채점·오답률·교사 세션·DB 제약 검사는 통과했습니다. 이 작업 환경은 npm 오프라인 제한으로 전체 앱 빌드를 수행하지 못했으며, 브라우저 연결도 없어 화면 및 인쇄 실물 검증은 아직 하지 못했습니다. 저장소 업로드 후 **Check learning app**의 성공을 먼저 확인하세요. 상세 내역은 [QA.md](QA.md)를 참고하세요.
+GitHub 업로드, 의존성 설치, 자동 테스트, production build, Worker HTTP 통합 테스트가 모두 통과했습니다. 학생 접속·제출·오답 재도전·교사 통계·학급 코드 재발급 후 기록 유지를 검증했습니다.
+
+[성공한 검사 결과](https://github.com/rldusovuun/math_review_grade4/actions/runs/41583167919)
+
+실제 Cloudflare 계정·DB 설정 및 배포, 모바일/PC 화면과 A4 인쇄의 시각 검증은 남아 있습니다. 상세 내역은 [QA.md](QA.md)를 참고하세요.
