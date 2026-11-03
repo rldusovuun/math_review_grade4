@@ -19,3 +19,5 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+      - name: Test production Worker HTTP flow
+        run: node tests/http.test.mjs
