@@ -22,7 +22,7 @@ try{
  studentCookie=(await request('login',{code:cls.code,number:'01'})).cookie;
  const initial=(await request('status',{},studentCookie)).body;
  assert.equal(initial.student.number,1);assert.equal(initial.rounds.length,5);
- for(const q of initial.rounds.flatMap(r=>r.questions)){assert(!('answer' in q));assert(!('explanation' in q));}
+ for(const q of initial.rounds.flatMap(r=>r.questions)){assert(!('answer' in q));assert(!('explanation' in q));if(q.type==='choice')assert.equal(q.options.length,5);else assert(!q.options);}
  await request('teacher',{},studentCookie,403);
  const questions=rounds[0].questions;
  const answers=Object.fromEntries(questions.map(q=>[q.id,q.answer]));
@@ -36,7 +36,15 @@ try{
  const retry=Object.fromEntries(questions.slice(0,4).map((q,i)=>[q.id,i===3?'0':q.answer]));
  const retried=(await request('submit',{round:1,revision:1,requestId:crypto.randomUUID(),answers:retry},studentCookie)).body;
  assert.equal(retried.statuses[0].wrong.length,1);assert.equal(retried.total[0].wrong,4);assert.equal(retried.total[0].remaining,1);
+ const emptyRound=(await request('submit',{round:2,revision:0,requestId:crypto.randomUUID(),answers:{}},studentCookie)).body;
+ assert.equal(emptyRound.statuses[1].wrong.length,20);
+ const oneFraction=rounds[1].questions[0];
+ const blankRetry=(await request('submit',{round:2,revision:1,requestId:crypto.randomUUID(),answers:{[oneFraction.id]:'10/18'}},studentCookie)).body;
+ assert.equal(blankRetry.statuses[1].wrong.length,19);
  const teacherData=(await request('teacher',{classId:cls.id},teacherCookie)).body;
+ const emptyRec=teacherData.records.find(r=>r.number===1&&r.round===2);
+ assert.equal(emptyRec.first.solved.length,0);assert.equal(emptyRec.latest.solved.length,1);
+ assert.equal(emptyRec.first.answers[oneFraction.id],'');assert.equal(teacherData.analysis[1].questions[0].rate,100);
  const rec=teacherData.records.find(r=>r.number===1&&r.round===1);
  assert.equal(rec.first.solved.length*5,80);assert.equal(rec.latest.solved.length*5,95);assert.equal(rec.revision,2);
  assert.equal(teacherData.analysis[0].questions[0].rate,100);assert.equal(teacherData.analysis[0].questions[0].remaining,0);

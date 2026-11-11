@@ -12,7 +12,7 @@ for(const r of rounds){
  for(const q of r.questions){
   assert(q.prompt&&q.explanation&&q.standardCodes.length);
   assert(isCorrect(q,q.answer));
-  if(q.type==='choice') assert.equal(q.options.filter(o=>o===q.answer).length,1);
+  if(q.type==='choice') {assert.equal(q.options.length,5);assert.equal(new Set(q.options).size,5);assert.equal(q.options.filter(o=>o===q.answer).length,1);}
   else assert(numeric(q.answer)>=0);
   const safe=publicQuestion(q);assert(!('answer' in safe));assert(!('explanation' in safe));
  }
@@ -21,7 +21,10 @@ for(const r of rounds){
  assert.equal(deltas.filter(x=>x===Math.max(...deltas)).length,1,'graph maximum change must have a unique interval');
  const correct=Object.fromEntries(r.questions.map(q=>[q.id,q.answer]));
  assert.equal(grade(r.questions,correct).solved.length,20);
- assert.throws(()=>grade(r.questions,{}));
+ const empty=grade(r.questions,{});assert.equal(empty.solved.length,0);assert.equal(Object.keys(empty.answers).length,20);assert(Object.values(empty.answers).every(v=>v===''));
+ const partly=grade(r.questions,{[r.questions[0].id]:r.questions[0].answer});assert.equal(partly.solved.length,1);
+ const blankRetry=grade(r.questions,{},partly);assert.deepEqual(blankRetry.solved,partly.solved);assert.equal(blankRetry.answers[r.questions[0].id],r.questions[0].answer);
+ assert.equal(unitSummary(r.questions,empty,blankRetry).reduce((n,u)=>n+u.wrong,0),20);
 }
 assert.equal(normalizeNumber('01'),1);assert.equal(normalizeNumber('１'),1);
 for(const value of ['','0','-1','1.1','1000','abc'])assert.throws(()=>normalizeNumber(value));
